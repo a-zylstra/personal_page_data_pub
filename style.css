@@ -36,3 +36,7 @@ div {
 img {
     border-radius: 8px;
 }
+
+a:hover {
+    color:#357266;
+}
