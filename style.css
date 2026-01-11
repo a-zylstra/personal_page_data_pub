@@ -1,0 +1,38 @@
+body {
+    background-color: #DCD7D5;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+div {
+    background-color: rgba(72, 130, 134, 0.4);
+    padding: 4px;
+    border-radius: 15px;
+    margin:15px;
+}
+
+#subtitle {
+    text-align: left;
+    color: #393235;
+}
+
+.SectionHeader {
+    text-align: center;
+    color: #393235;
+    font-weight: bolder;
+}
+
+#generalText { 
+    color:#393235;
+}
+
+
+.center {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+img {
+    border-radius: 8px;
+}
