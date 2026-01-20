@@ -1,6 +1,6 @@
 function hello() {
-    let name = prompt("What is your name?");
-    if (name) {
-        document.getElementById("greeting").innerHTML = `Hello, General Kenobi ${name}!`;
+    let colour = prompt("Gimme your favorite color");
+    if (colour) {
+        document.getElementById("favcolor").innerHTML = `Hope you have a very ${colour} day!`;
     }
 }
