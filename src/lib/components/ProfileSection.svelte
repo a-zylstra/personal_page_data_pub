@@ -15,7 +15,7 @@
         <h1>{name}</h1>
         <p class="lead">{thesisBlurb}</p>
         <div class="link-row" aria-label="Professional links">
-          <a class="pill-link" href="https://github.com/zylstraa" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="pill-link" href="https://github.com/a-zylstra" target="_blank" rel="noreferrer">GitHub</a>
           <a class="pill-link" href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
           <a class="pill-link" href="https://www.linkedin.com/in/alexa-zylstra/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
