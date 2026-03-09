@@ -1,6 +1,4 @@
 import type {
-  DepartmentCount,
-  MetDepartmentsResponse,
   MetObject,
   MetSearchResponse
 } from '$lib/types/met';
@@ -13,36 +11,51 @@ function getRandomItems<T>(array: T[], count: number): T[] {
   return shuffled.slice(0, count);
 }
 
+async function fetchJson<T>(url: string): Promise<T> {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Met API request failed: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json() as Promise<T>;
+}
+
 export async function searchObjectIds(query: string): Promise<number[]> {
-  const response = await fetch(
+  const data = await fetchJson<MetSearchResponse>(
     `${BASE_URL}/search?hasImages=true&q=${encodeURIComponent(query)}`
   );
 
-  const data: MetSearchResponse = await response.json();
-  return data.objectIDs || [];
+  return data.objectIDs ?? [];
 }
 
 export async function fetchObject(objectId: number): Promise<MetObject> {
-  const response = await fetch(`${BASE_URL}/objects/${objectId}`);
-  const data: MetObject = await response.json();
-  return data;
+  return fetchJson<MetObject>(`${BASE_URL}/objects/${objectId}`);
 }
 
 export async function fetchFeaturedObjects(query: string, count: number): Promise<MetObject[]> {
   const ids = await searchObjectIds(query);
-  const randomIds = getRandomItems(ids, 20);
 
+  if (ids.length === 0) {
+    return [];
+  }
+
+  const randomIds = getRandomItems(ids, Math.min(ids.length, 20));
   const objects: MetObject[] = [];
 
   for (const id of randomIds) {
-    const object = await fetchObject(id);
+    try {
+      const object = await fetchObject(id);
 
-    if (object.primaryImageSmall) {
-      objects.push(object);
-    }
+      if (object.primaryImageSmall || object.primaryImage) {
+        objects.push(object);
+      }
 
-    if (objects.length >= count) {
-      break;
+      if (objects.length >= count) {
+        break;
+      }
+    } catch (error) {
+      console.error(`Failed to fetch object ${id}`, error);
     }
   }
 
@@ -51,47 +64,74 @@ export async function fetchFeaturedObjects(query: string, count: number): Promis
 
 export async function fetchCollectionSet(query: string, count = 12): Promise<MetObject[]> {
   const ids = await searchObjectIds(query);
-  const randomIds = getRandomItems(ids, 40);
 
+  if (ids.length === 0) {
+    return [];
+  }
+
+  const randomIds = getRandomItems(ids, Math.min(ids.length, 40));
   const objects: MetObject[] = [];
 
   for (const id of randomIds) {
-    const object = await fetchObject(id);
+    try {
+      const object = await fetchObject(id);
 
-    if (object.primaryImageSmall) {
-      objects.push(object);
-    }
+      if (object.primaryImageSmall || object.primaryImage) {
+        objects.push(object);
+      }
 
-    if (objects.length >= count) {
-      break;
+      if (objects.length >= count) {
+        break;
+      }
+    } catch (error) {
+      console.error(`Failed to fetch object ${id}`, error);
     }
   }
 
   return objects;
 }
 
-export async function fetchDepartmentCounts(): Promise<DepartmentCount[]> {
-  const response = await fetch(`${BASE_URL}/departments`);
-  const data: MetDepartmentsResponse = await response.json();
+export async function searchKoreanArtIds(): Promise<number[]> {
+  const data = await fetchJson<MetSearchResponse>(
+    `${BASE_URL}/search?artistOrCulture=true&hasImages=true&q=${encodeURIComponent('korean')}`
+  );
 
-  const randomDepartments = getRandomItems(data.departments, 6);
+  return data.objectIDs ?? [];
+}
 
-  const counts: DepartmentCount[] = [];
+function isKoreanArt(object: MetObject): boolean {
+  const nationality = object.artistNationality?.toLowerCase() ?? '';
+  const culture = object.culture?.toLowerCase() ?? '';
+  const artist = object.artistDisplayName?.toLowerCase() ?? '';
+  const title = object.title?.toLowerCase() ?? '';
 
-  for (const department of randomDepartments) {
-    const deptResponse = await fetch(
-      `${BASE_URL}/objects?departmentIds=${department.departmentId}`
-    );
+  return (
+    nationality.includes('korean') ||
+    culture.includes('korean') ||
+    artist.includes('korea') ||
+    title.includes('korea')
+  );
+}
 
-    const deptData = await deptResponse.json();
 
-    counts.push({
-      label: department.displayName,
-      value: deptData.total
-    });
-  }
+export async function fetchKoreanArtObjects(limit = 40): Promise<MetObject[]> {
+  const ids = await searchKoreanArtIds();
+  const selectedIds = ids.slice(0, limit * 3);
 
-  counts.sort((a, b) => b.value - a.value);
+  const objects = await Promise.all(
+    selectedIds.map(async (id) => {
+      try {
+        return await fetchObject(id);
+      } catch (error) {
+        console.error(`Failed to fetch object ${id}`, error);
+        return null;
+      }
+    })
+  );
 
-  return counts;
+  return objects
+    .filter((obj): obj is MetObject => {
+      return !!obj && !!(obj.primaryImageSmall || obj.primaryImage) && isKoreanArt(obj);
+    })
+    .slice(0, limit);
 }

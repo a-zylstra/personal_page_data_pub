@@ -17,20 +17,6 @@ export type MetSearchResponse = {
   objectIDs: number[] | null;
 };
 
-export type MetDepartment = {
-  departmentId: number;
-  displayName: string;
-};
-
-export type MetDepartmentsResponse = {
-  departments: MetDepartment[];
-};
-
-export type DepartmentCount = {
-  label: string;
-  value: number;
-};
-
 export type MediumCount = {
   label: string;
   value: number;
