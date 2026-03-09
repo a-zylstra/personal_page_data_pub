@@ -1,7 +1,4 @@
-import type {
-  MetObject,
-  MetSearchResponse
-} from '$lib/types/met';
+import type { MetObject, MetSearchResponse } from '$lib/types/met';
 
 const BASE_URL = 'https://collectionapi.metmuseum.org/public/collection/v1';
 
@@ -62,60 +59,12 @@ export async function fetchFeaturedObjects(query: string, count: number): Promis
   return objects;
 }
 
-export async function fetchCollectionSet(query: string, count = 12): Promise<MetObject[]> {
-  const ids = await searchObjectIds(query);
-
-  if (ids.length === 0) {
-    return [];
-  }
-
-  const randomIds = getRandomItems(ids, Math.min(ids.length, 40));
-  const objects: MetObject[] = [];
-
-  for (const id of randomIds) {
-    try {
-      const object = await fetchObject(id);
-
-      if (object.primaryImageSmall || object.primaryImage) {
-        objects.push(object);
-      }
-
-      if (objects.length >= count) {
-        break;
-      }
-    } catch (error) {
-      console.error(`Failed to fetch object ${id}`, error);
-    }
-  }
-
-  return objects;
-}
-
-export async function searchKoreanArtIds(): Promise<number[]> {
+export async function fetchKoreanArtObjects(limit = 40): Promise<MetObject[]> {
   const data = await fetchJson<MetSearchResponse>(
     `${BASE_URL}/search?artistOrCulture=true&hasImages=true&q=${encodeURIComponent('korean')}`
   );
 
-  return data.objectIDs ?? [];
-}
-
-function isKoreanArt(object: MetObject): boolean {
-  const nationality = object.artistNationality?.toLowerCase() ?? '';
-  const culture = object.culture?.toLowerCase() ?? '';
-  const artist = object.artistDisplayName?.toLowerCase() ?? '';
-  const title = object.title?.toLowerCase() ?? '';
-
-  return (
-    nationality.includes('korean') ||
-    culture.includes('korean') ||
-    artist.includes('korea') ||
-    title.includes('korea')
-  );
-}
-
-
-export async function fetchKoreanArtObjects(limit = 40): Promise<MetObject[]> {
-  const ids = await searchKoreanArtIds();
+  const ids = data.objectIDs ?? [];
   const selectedIds = ids.slice(0, limit * 3);
 
   const objects = await Promise.all(
@@ -131,7 +80,21 @@ export async function fetchKoreanArtObjects(limit = 40): Promise<MetObject[]> {
 
   return objects
     .filter((obj): obj is MetObject => {
-      return !!obj && !!(obj.primaryImageSmall || obj.primaryImage) && isKoreanArt(obj);
+      if (!obj || !(obj.primaryImageSmall || obj.primaryImage)) {
+        return false;
+      }
+
+      const nationality = obj.artistNationality?.toLowerCase() ?? '';
+      const culture = obj.culture?.toLowerCase() ?? '';
+      const artist = obj.artistDisplayName?.toLowerCase() ?? '';
+      const title = obj.title?.toLowerCase() ?? '';
+
+      return (
+        nationality.includes('korea') ||
+        culture.includes('korea') ||
+        artist.includes('korea') ||
+        title.includes('korea')
+      );
     })
     .slice(0, limit);
 }
