@@ -17,8 +17,8 @@
   // YOUR INFO — edit these to be about YOU
   // ============================================
   const name = "Alexa";
-  const major = "Digital Humanities";
-  const year = "First year grad student";
+  const major = "Digital Studies of Language, Culture, and History";
+  const year = "First year graduate student";
   const email = "zylstraa@uchicago.edu";
 
   // ============================================
@@ -35,7 +35,17 @@
     "Python",
     "SQL",
     "R",
-    "Svelte (learning!)"
+    "Svelte",
+    "neo4j"
+  ]);
+
+  let courses = $state([
+    "Data Management for the Humanities",
+    "Intermediate Korean I",
+    "Introduction to Digital Humanities",
+    "Data Publication for the Humanities",
+    "Intermediate Korean II",
+    "Digital Texts I: Corpus Building and Corpus Statistics"
   ]);
 
   // ============================================
@@ -91,7 +101,7 @@
     {skillCount} updates AUTOMATICALLY when skills array changes.
     This is $derived() in action — you never manually update it.
   -->
-  <h2>Skills ({skillCount})</h2>
+  <h2>Technical Skills ({skillCount})</h2>
 
   <ul class="skills-list">
     <!--
@@ -135,16 +145,28 @@
   </div>
 </section>
 
+<section class="course-section">
+  <h2>Courses Taken ({skillCount})</h2>
+
+  <ul class="skills-list">
+    {#each courses as course}
+      <li>{course}</li>
+    {/each}
+  </ul>
+</section>
+
 <section class="bio">
-  <h2>About Me</h2>
+  <h2>About my studies</h2>
   <p>
-    <!-- CUSTOMIZE: Write about yourself! 2-4 paragraphs. -->
-    Write a few paragraphs about yourself here. What are you studying?
-    What interests you? What do you want to do after graduation?
+    Digital Studies at the University of Chicago consists of a variety of academic programs 
+    in which students learn coding skills relevant to research in the humanities and investigate 
+    the impact of digital computing on society, culture, and the arts.
   </p>
   <p>
-    This page is a great place to share your story, your goals,
-    and what makes you unique. Make it personal!
+    My thesis revolves around the study of contemporary Korean art and how it has been represented 
+    in the West. I have completed a year of intermediate Korean language studies so that I may understand 
+    and compare Korean articles on these same artists to understand the differences in Western versus Eastern 
+    representation of this art. 
   </p>
 </section>
 
