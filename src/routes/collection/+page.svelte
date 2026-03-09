@@ -1,11 +1,13 @@
 <script lang="ts">
   import FeaturedArtwork from '$lib/components/FeaturedArtwork.svelte';
   import MetImageCard from '$lib/components/MetImageCard.svelte';
-  import type { MetObject } from '$lib/types/met';
+  import MediumChart from '$lib/components/MediumChart.svelte';
+  import type { MediumCount, MetObject } from '$lib/types/met';
 
   export let data: {
     artwork: MetObject | null;
     gallery: MetObject[];
+    mediumCounts: MediumCount[];
   };
 </script>
 
@@ -32,6 +34,16 @@
     {:else}
       <p>No artwork could be loaded.</p>
     {/if}
+  </div>
+</section>
+
+<section class="section">
+  <div class="page-shell">
+    <MediumChart
+      data={data.mediumCounts}
+      title="Most common medium types in Korean art at the Met"
+      maxBars={10}
+    />
   </div>
 </section>
 

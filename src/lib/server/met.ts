@@ -98,3 +98,32 @@ export async function fetchKoreanArtObjects(limit = 40): Promise<MetObject[]> {
     })
     .slice(0, limit);
 }
+
+function normalizeMedium(medium: string): string {
+  const value = medium?.trim();
+
+  if (!value) return 'Unknown';
+
+  if (value.toLowerCase().includes('oil on canvas')) return 'Oil on canvas';
+  if (value.toLowerCase().includes('hanging scroll')) return 'Hanging scroll';
+  if (value.toLowerCase().includes('album leaf')) return 'Album leaf';
+  if (value.toLowerCase().includes('ceramic')) return 'Ceramic';
+  if (value.toLowerCase().includes('porcelain')) return 'Porcelain';
+  if (value.toLowerCase().includes('ink and color on paper')) return 'Ink and color on paper';
+  if (value.toLowerCase().includes('ink on paper')) return 'Ink on paper';
+
+  return value;
+}
+
+export function countMediums(artworks: MetObject[]): MediumCount[] {
+  const mediumMap = new Map<string, number>();
+
+  for (const artwork of artworks) {
+    const medium = normalizeMedium(artwork.medium);
+    mediumMap.set(medium, (mediumMap.get(medium) ?? 0) + 1);
+  }
+
+  return [...mediumMap.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .sort((a, b) => b.value - a.value);
+}
