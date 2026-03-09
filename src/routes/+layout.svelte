@@ -30,7 +30,7 @@
       CUSTOMIZE THIS: Replace "My Name" with YOUR name.
       This is your site's "brand" — it shows on every page.
     -->
-		<a href="/" class="site-title">My Name</a>
+		<a href="/" class="site-title">Alexa Zylstra</a>
 
 		<div class="nav-links">
 			<!--
@@ -46,8 +46,7 @@
       -->
 			<a href="/">Home</a>
 			<a href="/about">About</a>
-			<a href="/projects">Projects</a>
-			<a href="/weather">Weather</a>
+			<a href="/collection">Met Collection</a>
 		</div>
 	</div>
 </nav>
