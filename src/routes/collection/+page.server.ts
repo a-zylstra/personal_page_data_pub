@@ -1,12 +1,12 @@
 import {
   fetchKoreanArtObjects,
-  countMediums,
+  countClassifications,
 } from '$lib/server/met';
 
 export const load = async () => {
   const allArtworks = await fetchKoreanArtObjects(50);
   const featuredId = allArtworks[0]?.objectID;
-  const mediumCounts = countMediums(allArtworks);
+  const mediumCounts = countClassifications(allArtworks);
 
   return {
     artwork: allArtworks[0] ?? null,

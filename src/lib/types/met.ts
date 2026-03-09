@@ -9,7 +9,7 @@ export type MetObject = {
   primaryImageSmall: string;
   objectURL: string;
   culture: string;
-  medium: string;
+  classification: string;
 };
 
 export type MetSearchResponse = {
