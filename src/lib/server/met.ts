@@ -1,4 +1,4 @@
-import type { MetObject, MetSearchResponse } from '$lib/types/met';
+import type { MediumCount, MetObject, MetSearchResponse } from '$lib/types/met';
 
 const BASE_URL = 'https://collectionapi.metmuseum.org/public/collection/v1';
 
