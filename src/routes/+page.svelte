@@ -21,8 +21,9 @@
       <p class="eyebrow">Met Museum API</p>
       <h2>Selected works pulled from the Met collection</h2>
       <p>
-      This section uses the Met Museum API to connect the site to my thesis interests in the availability of Korean 
-      art, and the implications that may have.
+        This is connected to the Metropolitan Museum of Art in NY's API to pull featured 
+        Korean artwork. Most of the featured art is not contemporary due to the open access API only 
+        contains works the museum has deemed to be in the public domain.
       </p>
     </div>
 
