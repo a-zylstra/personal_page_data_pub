@@ -56,7 +56,7 @@
   matches the current URL. This is the "picture" in the "frame."
 -->
 <main>{@render children()}</main>
-<footer><p>© 2026 My Name · Built with SvelteKit</p></footer>
+<footer><p>© 2026 Alexa Zylstra · Built with SvelteKit & Metropolitan Museum of Art's API</p></footer>
 
 <style>
 	:global(body) {
