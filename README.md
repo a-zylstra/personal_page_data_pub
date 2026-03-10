@@ -1,1 +1,1 @@
-# personal_page_data_pub
+Final project for data publication
