@@ -41,5 +41,5 @@
   highlight specific projects on github, etc
   let's get a consistent color palette
   include places i've lived?
-  
+  a keyword search function of the corpus i've built
   -->
