@@ -6,7 +6,7 @@ import {
 export const load = async () => {
   const allArtworks = await fetchKoreanArtObjects(50);
   const featuredId = allArtworks[0]?.objectID;
-  const chartArtworks = await fetchKoreanArtObjects(200)
+  const chartArtworks = allArtworks;
   const mediumCounts = countClassifications(chartArtworks);
 
   return {
