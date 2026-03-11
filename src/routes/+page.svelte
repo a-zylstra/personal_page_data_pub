@@ -35,4 +35,7 @@
   </div>
 </section>
 
-<!-- Let's include more personal touches like favorite artwork, my goodreads, backstory on why korean and why contemporary korean art, etc -->
+<!-- Let's include more personal touches like favorite artwork, 
+  my goodreads, backstory on why korean and why contemporary korean art,
+  the languages i speak, more tech stack, remove the option to add or remove skills, 
+  highlight specific projects on github, etc -->
