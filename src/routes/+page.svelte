@@ -38,4 +38,8 @@
 <!-- Let's include more personal touches like favorite artwork, 
   my goodreads, backstory on why korean and why contemporary korean art,
   the languages i speak, more tech stack, remove the option to add or remove skills, 
-  highlight specific projects on github, etc -->
+  highlight specific projects on github, etc
+  let's get a consistent color palette
+  include places i've lived?
+  
+  -->
