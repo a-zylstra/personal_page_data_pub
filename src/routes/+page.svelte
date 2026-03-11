@@ -35,3 +35,4 @@
   </div>
 </section>
 
+<!-- Let's include more personal touches like favorite artwork, my goodreads, etc -->
