@@ -39,7 +39,11 @@
   my goodreads, backstory on why korean and why contemporary korean art,
   the languages i speak, more tech stack, remove the option to add or remove skills, 
   highlight specific projects on github, etc
-  let's get a consistent color palette
+  let's get a consistent color palette & design pattern
   include places i've lived?
   a keyword search function of the corpus i've built
-  -->
+  featured artist pulled from my instagram?
+  add a correspondence page that makes it easy how to contact me
+  spotify included too?
+  a link to the paper i've been published as a co author in 
+  include past lives (chemist, people manager, etc)-->
