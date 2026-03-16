@@ -35,7 +35,10 @@
   </div>
 </section>
 
-<!-- Let's include more personal touches like favorite artwork, 
+
+
+<!-- Comments inspired from class presentations:
+ Let's include more personal touches like favorite artwork, 
   my goodreads, backstory on why korean and why contemporary korean art,
   the languages i speak, more tech stack, remove the option to add or remove skills, 
   highlight specific projects on github, etc
@@ -46,4 +49,5 @@
   add a correspondence page that makes it easy how to contact me
   spotify included too?
   a link to the paper i've been published as a co author in 
-  include past lives (chemist, people manager, etc)-->
+  include past lives (chemist, people manager, etc)
+  photo gallery of art museums visited, add a map element-->
